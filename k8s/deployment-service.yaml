@@ -1,0 +1,32 @@
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: hello-azure-by-wasm-rust
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: hello-azure-by-wasm-rust
+    template:
+      metadata:
+        labels:
+          app: hello-azure-by-wasm-rust
+      spec:
+        runtimeClassName: wasmtime-spin
+        containers:
+        - name: hello-azure-by-wasm-rust
+          image: wasmpython.azurecr.io/hello-azure-by-wasm-rust:latest
+          command: ["/"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-azure-by-wasm-rust
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: hello-azure-by-wasm-rust

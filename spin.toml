@@ -1,0 +1,14 @@
+spin_version = "1"
+authors = ["kanin-kearpimy <kanin.kearpimy@gmail.com>"]
+description = "wasm rust"
+name = "hello-azure-by-wasm-rust"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "hello-azure-by-wasm-rust"
+source = "hello_azure_by_wasm_rust.wasm"
+[component.trigger]
+route = "/..."
+[component.build]
+command = "cargo build --target wasm32-wasi --release"
